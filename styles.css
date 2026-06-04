@@ -60,8 +60,15 @@ header {
 .hero-video {
   position: absolute; top: 0; left: 50%; transform: translateX(-50%);
   width: 100%; max-width: 1920px; height: 100%;
-  object-fit: cover; z-index: 0;
+  object-fit: cover; object-position: center; z-index: 0;
+  transition: object-position .3s ease;
 }
+/* As the window narrows toward mobile, bias the visible video crop to the left.
+   Lower % = show more of the LEFT side of the video. Tune these numbers to taste. */
+@media (max-width: 1100px) { .hero-video { object-position: 38% center; } }
+@media (max-width: 860px)  { .hero-video { object-position: 25% center; } }
+@media (max-width: 600px)  { .hero-video { object-position: 12% center; } }
+@media (max-width: 420px)  { .hero-video { object-position: 10% center; } }
 /* Scrim: covers only the video area (matches .hero-video box), keeping
    white text readable over light/white video frames */
 .hero::after {
@@ -174,20 +181,25 @@ section { padding: 80px 0; }
 .stat strong { display: block; font-size: 2rem; color: var(--bright); }
 .stat span { color: var(--slate); font-size: .9rem; }
 
-/* Why me */
-.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
-.why-card {
-  background: #fff; border-radius: var(--radius); padding: 30px; border: 1px solid #e3edf6;
+/* Why me — comparison */
+.compare-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; align-items: stretch; }
+.compare-card {
+  background: #fff; border-radius: var(--radius); padding: 34px; border: 1px solid #e3edf6;
   box-shadow: var(--shadow); transition: transform .2s ease;
 }
-.why-card:hover { transform: translateY(-4px); }
-.why-card .icon {
-  width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center;
-  background: linear-gradient(135deg, var(--bright), var(--deep)); margin-bottom: 18px;
+.compare-card:hover { transform: translateY(-4px); }
+.compare-good { border-top: 4px solid #2e9e5b; }
+.compare-bad { border-top: 4px solid #d64545; }
+.compare-card h3 { color: var(--deep); font-size: 1.3rem; margin-bottom: 22px; }
+.compare-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.compare-list li { position: relative; padding-left: 36px; color: var(--ink); font-size: 1rem; line-height: 1.45; }
+.compare-list li::before {
+  position: absolute; left: 0; top: 1px;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center; font-size: .85rem; font-weight: 700; color: #fff;
 }
-.why-card .icon svg { width: 26px; height: 26px; stroke: #fff; }
-.why-card h3 { color: var(--deep); font-size: 1.2rem; margin-bottom: 10px; }
-.why-card p { color: var(--slate); font-size: .97rem; }
+.compare-good .compare-list li::before { content: "✓"; background: #2e9e5b; }
+.compare-bad .compare-list li::before { content: "✕"; background: #d64545; }
 .why-cta { text-align: center; margin-top: 44px; }
 
 /* Contact */
@@ -236,8 +248,7 @@ footer { background: var(--ink); color: #aebfd2; padding: 40px 0; }
     display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0;
     background: #fff; padding: 20px 24px; gap: 16px; border-bottom: 1px solid #e3edf6; box-shadow: var(--shadow);
   }
-  .grid-2, .work-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
-  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .grid-2, .work-grid, .about-grid, .contact-grid, .compare-grid { grid-template-columns: 1fr; }
   .about-grid img { width: 150px; height: 150px; }
   .about-grid .profile-photo { width: 220px; height: 220px; }
   .hero-layout { flex-direction: column-reverse; gap: 32px; text-align: center; }
@@ -256,7 +267,6 @@ footer { background: var(--ink); color: #aebfd2; padding: 40px 0; }
 }
 
 @media (max-width: 520px) {
-  .why-grid { grid-template-columns: 1fr; }
   section { padding: 56px 0; }
   .hero { padding: 64px 0 90px; }
 }
