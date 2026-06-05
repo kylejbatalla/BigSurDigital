@@ -40,7 +40,7 @@ header {
 .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1120px; margin: 0 auto; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .nav-logo { width: 50px; height: 50px; flex-shrink: 0; }
-.nav-logo img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.9); }
+.nav-logo img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.2); }
 .brand span {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 800; font-size: 1.2rem; color: var(--deep);
@@ -86,7 +86,7 @@ header {
   background: #fff; display: grid; place-items: center; padding: 0; overflow: hidden;
   box-shadow: 0 8px 28px rgba(0,0,0,.35);
 }
-.hero-logo .logo-circle img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.9); }
+.hero-logo .logo-circle img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.0); }
 .eyebrow {
   display: inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
   padding: 6px 16px; border-radius: 999px; font-size: .85rem; font-weight: 600; margin-bottom: 22px;
@@ -241,7 +241,7 @@ footer { background: var(--ink); color: #aebfd2; padding: 40px 0; }
   background: #fff; display: grid; place-items: center; overflow: hidden;
   box-shadow: 0 4px 14px rgba(0,0,0,.3);
 }
-.foot-logo img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.9); }
+.foot-logo img { width: 100%; height: 100%; object-fit: contain; transform: scale(0.95); }
 .foot a { color: #aebfd2; }
 .foot a:hover { color: #fff; }
 .foot-links { display: flex; gap: 22px; }
