@@ -180,6 +180,12 @@ section { padding: 80px 0; }
 .stats { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
 .stat strong { display: block; font-size: 2rem; color: var(--bright); }
 .stat span { color: var(--slate); font-size: .9rem; }
+.btn-linkedin {
+  display: flex; align-items: center; gap: 10px; width: fit-content; margin: 24px auto 0;
+  background: #0a66c2; color: #fff; box-shadow: var(--shadow);
+}
+.btn-linkedin svg { width: 20px; height: 20px; }
+.btn-linkedin:hover { background: #084d92; transform: translateY(-2px); box-shadow: 0 14px 34px rgba(10, 102, 194, 0.3); }
 
 /* Why me — comparison */
 .compare-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; align-items: stretch; }
