@@ -68,7 +68,6 @@ header {
 @media (max-width: 1100px) { .hero-video { object-position: 38% center; } }
 @media (max-width: 860px)  { .hero-video { object-position: 25% center; } }
 @media (max-width: 600px)  { .hero-video { object-position: 20% center; } }
-@media (max-width: 420px)  { .hero-video { object-position: 5% center; } }
 
 /* Scrim: covers only the video area (matches .hero-video box), keeping
    white text readable over light/white video frames */
