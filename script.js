@@ -8,6 +8,27 @@ document.querySelectorAll('#navLinks a').forEach(function (a) {
   });
 });
 
+// Hero video: maximize autoplay reliability on mobile.
+// (Markup already has autoplay/muted/playsinline; this recovers cases where the
+//  browser defers autoplay. It cannot override iOS Low Power Mode, which blocks autoplay by design.)
+(function () {
+  var v = document.querySelector('.hero-video');
+  if (!v) return;
+  v.muted = true;            // muted PROPERTY must be true for mobile autoplay
+  v.setAttribute('muted', '');
+  v.playsInline = true;
+  function tryPlay() {
+    var p = v.play();
+    if (p && typeof p.catch === 'function') { p.catch(function () {}); }
+  }
+  tryPlay();
+  v.addEventListener('canplay', tryPlay, { once: true });
+  // First user gesture is allowed to start playback even when autoplay was blocked
+  ['touchstart', 'click', 'scroll'].forEach(function (evt) {
+    document.addEventListener(evt, tryPlay, { once: true, passive: true });
+  });
+})();
+
 // Year
 document.getElementById('year').textContent = new Date().getFullYear();
 
