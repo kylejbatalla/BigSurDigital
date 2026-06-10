@@ -35,10 +35,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // Form (front-end demo — wire up to email/backend service when ready)
 function handleSubmit(e) {
   e.preventDefault();
-  var note = document.getElementById('formNote');
-  note.textContent = "Thanks! This is a demo form — connect it to email or a form service to receive messages.";
-  note.style.color = "#0b4f8a";
-  note.style.fontWeight = "600";
   document.getElementById('quoteForm').reset();
   return false;
 }
