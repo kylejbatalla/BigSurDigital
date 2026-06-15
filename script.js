@@ -29,6 +29,32 @@ document.querySelectorAll('#navLinks a').forEach(function (a) {
   });
 })();
 
+// Transparent nav over the hero: hide brand + white background while the hero
+// is behind the header; restore solid nav once the user scrolls past it.
+(function () {
+  var header = document.querySelector('header');
+  var hero = document.querySelector('.hero');
+  if (!header || !hero) return;
+  header.classList.add('hero-mode'); // hero is in view on load
+
+  function headerHeight() { return header.offsetHeight || 80; }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        header.classList.toggle('hero-mode', entry.isIntersecting);
+      });
+    }, { rootMargin: '-' + headerHeight() + 'px 0px 0px 0px', threshold: 0 });
+    observer.observe(hero);
+  } else {
+    // Fallback: toggle based on scroll position vs hero height
+    window.addEventListener('scroll', function () {
+      var past = window.scrollY > (hero.offsetHeight - headerHeight());
+      header.classList.toggle('hero-mode', !past);
+    }, { passive: true });
+  }
+})();
+
 // Year
 document.getElementById('year').textContent = new Date().getFullYear();
 

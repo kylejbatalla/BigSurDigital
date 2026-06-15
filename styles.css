@@ -33,7 +33,7 @@ a { color: var(--blue); text-decoration: none; }
 
 /* Header */
 header {
-  position: sticky; top: 0; z-index: 50;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
   border-bottom: 1px solid #e3edf6;
 }
@@ -51,6 +51,19 @@ header {
 .nav-links a:not(.btn):hover { transform: translateY(-3px); }
 .nav-links .btn { padding: 10px 20px; color: #fff; }
 .menu-toggle { display: none; background: none; border: none; font-size: 1.6rem; color: var(--deep); cursor: pointer; }
+
+/* Header transparent while over the hero: no white background/border,
+   hide brand (logo + title); links stay readable in white. */
+header { transition: background-color .3s ease, border-color .3s ease, backdrop-filter .3s ease; }
+header.hero-mode {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+header.hero-mode .brand { opacity: 0; visibility: hidden; pointer-events: none; }
+header.hero-mode .nav-links a { color: #fff; }
+header.hero-mode .menu-toggle { color: #fff; }
+.brand { transition: opacity .3s ease; }
 
 /* Hero */
 .hero {
