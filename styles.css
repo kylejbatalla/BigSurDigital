@@ -67,7 +67,7 @@ header.hero-mode .menu-toggle { color: #fff; }
 
 /* Hero */
 .hero {
-  background: var(--pale);
+  background: #ffffff;
   color: #ffffff; padding: 90px 0 110px; position: relative; overflow: hidden;
 }
 .hero-video {
@@ -274,9 +274,12 @@ footer { background: var(--ink); color: #aebfd2; padding: 40px 0; }
   .nav-links { display: none; }
   .menu-toggle { display: block; }
   .nav-links.open {
-    display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0;
-    background: #fff; padding: 20px 24px; gap: 16px; border-bottom: 1px solid #e3edf6; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; position: absolute; top: 72px; right: 16px; width: max-content; min-width: 160px; max-width: calc(100vw - 32px);
+    background: #fff; padding: 16px 20px; gap: 16px; border: 1px solid #e3edf6; border-radius: 14px; box-shadow: var(--shadow);
   }
+  /* Open menu has a white background, so keep links gray even over the hero */
+  header.hero-mode .nav-links.open a:not(.btn) { color: var(--slate); }
+  header.hero-mode .nav-links.open .btn { color: #fff; }
   .grid-2, .work-grid, .about-grid, .contact-grid, .compare-grid { grid-template-columns: 1fr; }
   .about-grid img { width: 150px; height: 150px; }
   .about-grid .profile-photo { width: 220px; height: 220px; }
