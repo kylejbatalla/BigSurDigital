@@ -68,11 +68,12 @@ header.hero-mode .menu-toggle { color: #fff; }
 /* Hero */
 .hero {
   background: #ffffff;
-  color: #ffffff; padding: 90px 0 110px; position: relative; overflow: hidden;
+  color: #ffffff; padding: 90px 0; position: relative; overflow: hidden;
+  min-height: 100vh; display: flex; align-items: center;
 }
 .hero-video {
-  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 1920px; height: 100%;
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
   object-fit: cover; object-position: center; z-index: 0;
   transition: object-position .3s ease;
 }
@@ -85,8 +86,8 @@ header.hero-mode .menu-toggle { color: #fff; }
 /* Scrim: covers only the video area (matches .hero-video box), keeping
    white text readable over light/white video frames */
 .hero::after {
-  content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 1920px; height: 100%;
+  content: ""; position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
   z-index: 1; pointer-events: none;
   background: linear-gradient(160deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.45) 55%, rgba(0,0,0,.45) 100%);
 }
