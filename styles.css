@@ -255,6 +255,10 @@ form input:focus, form select:focus, form textarea:focus { outline: none; border
 form textarea { resize: vertical; min-height: 110px; }
 form .btn-primary { width: 100%; }
 .form-note { font-size: .85rem; color: var(--slate); text-align: center; margin-top: 14px; }
+.form-notice { font-size: .78rem; line-height: 1.5; color: var(--slate); text-align: center; margin: 12px 0 0; }
+.form-notice a { color: var(--bright); text-decoration: underline; }
+/* Hide the floating reCAPTCHA badge — disclosure is shown in the form notice above. */
+.grecaptcha-badge { visibility: hidden; }
 
 /* Footer */
 footer { background: var(--ink); color: #aebfd2; padding: 40px 0; }

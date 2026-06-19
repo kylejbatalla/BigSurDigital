@@ -58,10 +58,95 @@ document.querySelectorAll('#navLinks a').forEach(function (a) {
 // Year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Form (front-end demo — wire up to email/backend service when ready)
+// Quote form — POST submission to the Cloudflare Worker endpoint.
+// Config (endpoint + reCAPTCHA site key) comes from config.js.
+var CFG = window.SITE_CONFIG || {};
+var QUOTE_ENDPOINT = CFG.QUOTE_ENDPOINT;
+var RECAPTCHA_SITE_KEY = CFG.RECAPTCHA_SITE_KEY;
+
+// Load Google reCAPTCHA v3 (invisible — no puzzle, score-based).
+// Only loads if a real site key is configured.
+if (RECAPTCHA_SITE_KEY && RECAPTCHA_SITE_KEY !== 'YOUR_RECAPTCHA_V3_SITE_KEY') {
+  var rc = document.createElement('script');
+  rc.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(RECAPTCHA_SITE_KEY);
+  rc.async = true;
+  rc.defer = true;
+  document.head.appendChild(rc);
+}
+
 function handleSubmit(e) {
   e.preventDefault();
-  document.getElementById('quoteForm').reset();
+
+  var form = document.getElementById('quoteForm');
+  var btn = form.querySelector('button[type="submit"]');
+
+  // Status message element (created once, reused thereafter)
+  var status = document.getElementById('quoteStatus');
+  if (!status) {
+    status = document.createElement('p');
+    status.id = 'quoteStatus';
+    status.setAttribute('role', 'status');
+    status.style.marginTop = '0.75rem';
+    form.appendChild(status);
+  }
+
+  var payload = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    phone: form.phone.value.trim(),
+    interest: form.interest.value,
+    message: form.message.value.trim()
+  };
+
+  var originalLabel = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  status.textContent = '';
+  status.style.color = '';
+
+  function fail(msg) {
+    status.style.color = '#c0392b';
+    status.textContent = msg || 'Sorry, something went wrong sending your message. Please try again or email directly.';
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+  }
+
+  function send() {
+    fetch(QUOTE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Request failed with status ' + res.status);
+        return res.text();
+      })
+      .then(function () {
+        form.reset();
+        status.style.color = '#1a7f37';
+        status.textContent = 'Thanks! Your message has been sent — I\'ll be in touch soon.';
+        btn.disabled = false;
+        btn.textContent = originalLabel;
+      })
+      .catch(function () { fail(); });
+  }
+
+  // Get a fresh reCAPTCHA v3 token, then send. If reCAPTCHA isn't
+  // available (not configured / failed to load), send without it
+  // and let the Worker decide how strict to be.
+  if (window.grecaptcha && RECAPTCHA_SITE_KEY && RECAPTCHA_SITE_KEY !== 'YOUR_RECAPTCHA_V3_SITE_KEY') {
+    grecaptcha.ready(function () {
+      grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'quote' })
+        .then(function (token) {
+          payload.recaptchaToken = token;
+          send();
+        })
+        .catch(function () { fail('Could not verify you are human. Please reload and try again.'); });
+    });
+  } else {
+    send();
+  }
+
   return false;
 }
 
