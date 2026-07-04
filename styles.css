@@ -453,22 +453,43 @@ section { padding: 110px 0; position: relative; }
   content: "✓"; position: absolute; left: 0; color: var(--sky); font-weight: 700;
 }
 
-/* ---------- Compare (Why Us) ---------- */
-.compare-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; align-items: stretch; }
-.compare-card { padding: 38px; }
-.compare-good { border-top: 3px solid #34c07a; }
-.compare-bad { border-top: 3px solid #e05656; }
-.compare-good:hover { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 50px rgba(52, 192, 122, 0.12); border-color: rgba(52, 192, 122, 0.4); }
-.compare-bad:hover { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 50px rgba(224, 86, 86, 0.1); border-color: rgba(224, 86, 86, 0.4); }
-.compare-card h3 { color: #fff; font-size: 1.3rem; margin-bottom: 24px; }
-.compare-list { list-style: none; display: flex; flex-direction: column; gap: 15px; }
-.compare-list li { position: relative; padding-left: 38px; color: var(--ink); font-size: 1rem; line-height: 1.5; }
-.compare-list li::before {
-  position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%;
-  display: grid; place-items: center; font-size: 0.85rem; font-weight: 700; color: #fff;
+/* ---------- Why Us ---------- */
+.why-list {
+  list-style: none; max-width: 660px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 14px;
 }
-.compare-good .compare-list li::before { content: "✓"; background: linear-gradient(135deg, #2e9e5b, #34c07a); box-shadow: 0 0 14px rgba(52, 192, 122, 0.4); }
-.compare-bad .compare-list li::before { content: "✕"; background: linear-gradient(135deg, #c04545, #e05656); box-shadow: 0 0 14px rgba(224, 86, 86, 0.3); }
+.why-list li {
+  position: relative; padding: 18px 22px 18px 60px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  color: var(--ink); font-size: 1.08rem; font-weight: 500; line-height: 1.5;
+  transition: transform 0.4s var(--ease), border-color 0.3s ease, background-color 0.3s ease;
+}
+.why-list li:hover {
+  transform: translateX(6px);
+  border-color: var(--border-bright);
+  background: var(--card-hover);
+}
+.why-list li::before {
+  content: "✓"; position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--grad); color: #fff;
+  display: grid; place-items: center; font-size: 0.85rem; font-weight: 700;
+  box-shadow: 0 0 14px rgba(40, 128, 201, 0.45);
+}
+/* One-by-one entrance (quick): each row pops up in sequence.
+   Uses a one-shot animation so entrance delays never slow down hover effects. */
+.why-list > li { opacity: 0; }
+.why-list.in-view > li { opacity: 1; animation: why-in 0.45s var(--ease) backwards; }
+@keyframes why-in {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.why-list.in-view > li:nth-child(1) { animation-delay: 0.05s; }
+.why-list.in-view > li:nth-child(2) { animation-delay: 0.15s; }
+.why-list.in-view > li:nth-child(3) { animation-delay: 0.25s; }
+.why-list.in-view > li:nth-child(4) { animation-delay: 0.35s; }
+.why-list.in-view > li:nth-child(5) { animation-delay: 0.45s; }
 .why-cta { text-align: center; margin-top: 48px; }
 
 /* ---------- Work / templates ---------- */
@@ -631,7 +652,7 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
     to { opacity: 1; transform: translateY(0) scale(1); }
   }
   .nav-links.open a:not(.btn) { color: var(--ink); }
-  .grid-2, .work-grid, .about-grid, .contact-grid, .compare-grid { grid-template-columns: 1fr; }
+  .grid-2, .work-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
   .about-grid img { width: 150px; height: 150px; }
   .about-grid .profile-photo { width: 220px; height: 220px; }
   .hero { padding: 110px 0 70px; }
@@ -672,6 +693,7 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   .hero-rise { opacity: 1; transform: none; animation: none; }
   .eyebrow::before, .scroll-cue { animation: none; }
   .aurora, .mini-scroll, .mini-h1, .mini-btn, .float-chip { animation: none !important; }
+  .why-list > li { opacity: 1 !important; animation: none !important; }
   .mini-copy > * { animation: none !important; opacity: 1; transform: none; }
   .dyk-word { opacity: 1 !important; }
   .dyk-pin-space { height: auto; }
