@@ -41,14 +41,27 @@ var CFG = window.SITE_CONFIG || {};
 var QUOTE_ENDPOINT = CFG.QUOTE_ENDPOINT;
 var RECAPTCHA_SITE_KEY = CFG.RECAPTCHA_SITE_KEY;
 
-// Load Google reCAPTCHA v3 (invisible — no puzzle, score-based).
-if (RECAPTCHA_SITE_KEY && RECAPTCHA_SITE_KEY !== 'YOUR_RECAPTCHA_V3_SITE_KEY') {
-  var rc = document.createElement('script');
-  rc.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(RECAPTCHA_SITE_KEY);
-  rc.async = true;
-  rc.defer = true;
-  document.head.appendChild(rc);
-}
+// Load Google reCAPTCHA v3 (invisible — no puzzle, score-based) lazily:
+// only when the user first interacts with the quote form, so its script
+// stays off the initial page load entirely.
+(function () {
+  if (!RECAPTCHA_SITE_KEY || RECAPTCHA_SITE_KEY === 'YOUR_RECAPTCHA_V3_SITE_KEY') return;
+  var form = document.getElementById('quoteForm');
+  if (!form) return;
+  var loaded = false;
+  function loadRecaptcha() {
+    if (loaded) return;
+    loaded = true;
+    var rc = document.createElement('script');
+    rc.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(RECAPTCHA_SITE_KEY);
+    rc.async = true;
+    rc.defer = true;
+    document.head.appendChild(rc);
+  }
+  ['focusin', 'mouseenter', 'touchstart'].forEach(function (evt) {
+    form.addEventListener(evt, loadRecaptcha, { once: true, passive: true });
+  });
+})();
 
 function handleSubmit(e) {
   e.preventDefault();
