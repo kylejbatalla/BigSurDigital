@@ -55,10 +55,12 @@
 
   <!-- HERO -->
   <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto"
-      poster="resources/Hero_Poster.jpg">
-      <source src="resources/Hero_Video_web.mp4" type="video/mp4" />
-    </video>
+    <div class="hero-bg" aria-hidden="true">
+      <div class="aurora a1"></div>
+      <div class="aurora a2"></div>
+      <div class="aurora a3"></div>
+      <div class="grid-overlay"></div>
+    </div>
     <div class="wrap hero-layout">
       <div class="hero-text">
         <span class="eyebrow hero-rise d1">Serving Monterey County &amp; the Bay Area</span>
@@ -69,9 +71,45 @@
           <a href="#why" class="btn btn-outline">Why Choose Us?</a>
         </div>
       </div>
-      <div class="hero-logo hero-rise d2">
-        <div class="logo-3d" id="logo3d">
-          <img src="resources/logo-3d.png" alt="Big Sur Digital Logo" />
+
+      <div class="hero-visual hero-rise d2" aria-hidden="true">
+        <div class="laptop" id="laptop">
+          <div class="screen">
+            <div class="browser-bar">
+              <span class="b-dot r"></span><span class="b-dot y"></span><span class="b-dot g"></span>
+              <span class="b-url">yourbusiness.com</span>
+            </div>
+            <div class="mini-page">
+              <div class="mini-scroll">
+                <div class="mini-nav">
+                  <span class="mini-logo"></span>
+                  <span class="mini-links"><i></i><i></i><i></i></span>
+                </div>
+                <div class="mini-hero">
+                  <div class="mini-copy">
+                    <span class="mini-chip"></span>
+                    <span class="mini-h1"></span>
+                    <span class="mini-h1 short"></span>
+                    <span class="mini-line"></span>
+                    <span class="mini-line short"></span>
+                    <span class="mini-btn"></span>
+                  </div>
+                  <div class="mini-media">
+                    <div class="logo-3d" id="logo3d">
+                      <img src="resources/logo-3d.png" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div class="mini-cards">
+                  <div class="mini-card"><i class="mc-img"></i><i class="mc-line"></i><i class="mc-line short"></i></div>
+                  <div class="mini-card"><i class="mc-img"></i><i class="mc-line"></i><i class="mc-line short"></i></div>
+                  <div class="mini-card"><i class="mc-img"></i><i class="mc-line"></i><i class="mc-line short"></i></div>
+                </div>
+                <div class="mini-footer"></div>
+              </div>
+            </div>
+          </div>
+          <div class="laptop-base"></div>
         </div>
       </div>
     </div>
@@ -446,6 +484,7 @@
   <script src="resources/logo-shape.js" defer></script>
   <script src="config.js" defer></script>
   <script src="script.js" defer></script>
+  <script src="logo3d.js" defer></script>
 </body>
 
 </html>
