@@ -535,7 +535,14 @@ section { padding: 110px 0; position: relative; }
 
 /* ---------- About ---------- */
 .about { background: var(--bg-2); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  grid-template-areas: "photo head" "photo text";
+  column-gap: 56px; align-items: center;
+}
+.about-head { grid-area: head; align-self: end; }
+.about-photo { grid-area: photo; }
+.about-text { grid-area: text; align-self: start; }
 .about-grid img { width: 200px; height: 200px; display: block; margin: 0 auto; }
 .about-grid .profile-photo {
   width: 300px; height: 300px; border-radius: 50%; object-fit: cover;
@@ -655,6 +662,10 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   }
   .nav-links.open a:not(.btn) { color: var(--ink); }
   .grid-2, .work-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  /* Mobile: heading first, then photo, then the bio text */
+  .about-grid { grid-template-areas: "head" "photo" "text"; row-gap: 30px; }
+  .about-head { align-self: auto; text-align: center; }
+  .about-head h2 { margin-bottom: 0; }
   .about-grid img { width: 150px; height: 150px; }
   .about-grid .profile-photo { width: 220px; height: 220px; }
   .hero { padding: 110px 0 70px; }
