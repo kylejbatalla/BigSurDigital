@@ -158,12 +158,9 @@ header.hero-mode .nav-links a:not(.btn):hover { color: #fff; }
 .hero-layout { display: flex; align-items: center; gap: 56px; }
 .hero-text { flex: 1; min-width: 0; }
 .hero-logo { flex-shrink: 0; }
-.hero-logo .logo-circle {
-  width: 320px; height: 320px; max-width: 100%; border-radius: 50%;
-  background: #fff; display: grid; place-items: center; overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
-}
-.hero-logo .logo-circle img { width: 100%; height: 100%; object-fit: contain; }
+.logo-3d { width: 380px; height: 380px; max-width: 100%; position: relative; }
+.logo-3d canvas { display: block; width: 100% !important; height: 100% !important; }
+.logo-3d img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.5)); }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18);
@@ -510,7 +507,7 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   .hero-layout { flex-direction: column-reverse; gap: 36px; text-align: center; }
   .hero-cta { justify-content: center; }
   .hero h1, .hero p { margin-left: auto; margin-right: auto; }
-  .hero-logo .logo-circle { width: 220px; height: 220px; }
+  .logo-3d { width: 250px; height: 250px; }
   .work-card .thumb img { object-position: center 60%; }
   section { padding: 84px 0; }
 }
