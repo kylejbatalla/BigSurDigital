@@ -144,27 +144,9 @@ var REDUCED_MOTION = window.matchMedia &&
   revealEls.forEach(function (el) { observer.observe(el); });
 })();
 
-// Scroll progress bar (thin gradient line at the very top)
-(function () {
-  if (REDUCED_MOTION) return;
-  var bar = document.createElement('div');
-  bar.className = 'scroll-progress';
-  document.body.appendChild(bar);
-  var ticking = false;
-  function update() {
-    var doc = document.documentElement;
-    var max = doc.scrollHeight - window.innerHeight;
-    var p = max > 0 ? window.scrollY / max : 0;
-    bar.style.transform = 'scaleX(' + Math.min(Math.max(p, 0), 1) + ')';
-    ticking = false;
-  }
-  window.addEventListener('scroll', function () {
-    if (!ticking) { requestAnimationFrame(update); ticking = true; }
-  }, { passive: true });
-  update();
-})();
-
-// Hero parallax: content drifts up and fades as you scroll (Apple-style)
+// Hero parallax: content drifts up and fades as you scroll (Apple-style).
+// Skipped on small screens — the downward drift would push the laptop
+// under the next section and clip it.
 (function () {
   if (REDUCED_MOTION) return;
   var hero = document.querySelector('.hero');
@@ -173,6 +155,13 @@ var REDUCED_MOTION = window.matchMedia &&
   if (!hero || !layout) return;
   var ticking = false;
   function update() {
+    if (window.innerWidth < 860) {
+      layout.style.transform = '';
+      layout.style.opacity = '';
+      if (cue) cue.style.opacity = '';
+      ticking = false;
+      return;
+    }
     var h = hero.offsetHeight || 1;
     var y = window.scrollY;
     var progress = Math.min(y / (h * 0.85), 1);
@@ -182,6 +171,9 @@ var REDUCED_MOTION = window.matchMedia &&
     ticking = false;
   }
   window.addEventListener('scroll', function () {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', function () {
     if (!ticking) { requestAnimationFrame(update); ticking = true; }
   }, { passive: true });
 })();
