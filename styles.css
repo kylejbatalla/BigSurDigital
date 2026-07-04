@@ -136,7 +136,9 @@ header.hero-mode .nav-links a:not(.btn):hover { color: #fff; }
 
 /* Animated background: drifting aurora glows + faint blueprint grid */
 .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-.aurora { position: absolute; border-radius: 50%; filter: blur(90px); will-change: transform; }
+/* No filter: blur() here — the radial gradients are already soft, and GPU blur
+   at this size is what made mobile rendering crawl */
+.aurora { position: absolute; border-radius: 50%; will-change: transform; }
 .aurora.a1 {
   width: 55vw; height: 55vw; top: -22%; left: -12%;
   background: radial-gradient(circle, rgba(21, 101, 192, 0.4), transparent 65%);
