@@ -67,7 +67,7 @@
   mesh.scale.set(2.5, 2.5, 2.5);
   group.add(mesh);
 
-  new THREE.TextureLoader().load('resources/logo-3d.png', function (tex) {
+  new THREE.TextureLoader().load('resources/logo-3d-512.webp', function (tex) {
     tex.encoding = THREE.sRGBEncoding;
     tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
     faceMat.map = tex;
