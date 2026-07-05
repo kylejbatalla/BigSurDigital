@@ -837,6 +837,33 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   .work-card .thumb img { object-position: center 60%; }
   section { padding: 84px 0; }
 }
+/* Mobile: unpin How It Works + Why Us. Their content can be taller than the
+   viewport on phones, so instead of pinning they behave as normal scrolling
+   sections with everything expanded (script.js marks all items active/lit;
+   the rules below are a CSS fallback in case JS doesn't run). */
+@media (max-width: 860px) {
+  .process-pin-space { height: auto; }
+  .process-sticky { position: static; min-height: auto; padding: 84px 0; }
+  .why-pin-space { height: auto; }
+  .why-sticky { position: static; min-height: auto; padding: 84px 0; }
+  /* Items are always fully expanded; the li itself fades up into view as it
+     scrolls on screen (script.js adds .active/.lit via IntersectionObserver,
+     matching the site's other reveals) */
+  .card.tl-card { opacity: 1; }
+  .tl-marker { filter: none; transform: none; }
+  .card.tl-card p { max-height: none; opacity: 1; margin-top: 10px; }
+  .tl-item {
+    opacity: 0; transform: translateY(36px);
+    transition: opacity 0.8s ease, transform 0.8s var(--ease);
+  }
+  .tl-item.active { opacity: 1; transform: translateY(0); }
+  .why-list > li {
+    opacity: 0; transform: translateY(36px);
+    transition: opacity 0.8s ease, transform 0.8s var(--ease),
+      border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .why-list > li.lit { opacity: 1; transform: translateY(0); }
+}
 @media (max-width: 520px) {
   section { padding: 68px 0; }
   .tl-marker { width: 44px; height: 44px; font-size: 1.05rem; }
@@ -860,6 +887,7 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   .eyebrow::before, .scroll-cue { animation: none; }
   .aurora, .mini-scroll, .mini-h1, .mini-btn, .float-chip, .p-scroll, .p-h1 { animation: none !important; }
   .why-list > li { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .tl-item { opacity: 1 !important; transform: none !important; }
   .why-pin-space { height: auto; }
   .why-sticky { position: static; min-height: auto; padding: 90px 0; }
   .process-pin-space { height: auto; }

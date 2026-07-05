@@ -139,6 +139,33 @@ function handleSubmit(e) {
 var REDUCED_MOTION = window.matchMedia &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Pinned sections (How It Works, Why Us) don't fit small screens — below
+// this width the CSS unpins them into normal scrolling sections and each
+// item fades up as it enters the viewport (same feel as the site's other
+// reveals). Checked live (not once) so rotation/resize across the
+// breakpoint behaves correctly.
+var MOBILE_STATIC_MQ = window.matchMedia('(max-width: 860px)');
+
+// Reveal-on-scroll helper for those unpinned mobile items: adds className
+// to each element as it scrolls into view. Returns an object with a
+// disconnect() so desktop mode can take back control of the classes.
+function makeMobileReveal(items, className) {
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(function (el) { el.classList.add(className); });
+    return { disconnect: function () {} };
+  }
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add(className);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  items.forEach(function (el) { observer.observe(el); });
+  return { disconnect: function () { observer.disconnect(); } };
+}
+
 // Scroll reveal: sections, staggered grids, and any pre-marked elements
 (function () {
   var revealEls = document.querySelectorAll('.reveal, .stagger, .drop-in');
@@ -300,7 +327,15 @@ var REDUCED_MOTION = window.matchMedia &&
   }
 
   var ticking = false;
+  var mobileReveal = null;
   function update() {
+    if (MOBILE_STATIC_MQ.matches) { // unpinned on mobile: fade steps in on scroll
+      if (!mobileReveal) mobileReveal = makeMobileReveal(items, 'active');
+      current = -1; // force re-sync if resized back to desktop
+      ticking = false;
+      return;
+    }
+    if (mobileReveal) { mobileReveal.disconnect(); mobileReveal = null; }
     var rect = pinSpace.getBoundingClientRect();
     var vh = window.innerHeight || 1;
     // How far the user has scrolled through the pinned section (0 → 1)
@@ -333,7 +368,14 @@ var REDUCED_MOTION = window.matchMedia &&
   }
 
   var ticking = false;
+  var mobileReveal = null;
   function update() {
+    if (MOBILE_STATIC_MQ.matches) { // unpinned on mobile: fade points in on scroll
+      if (!mobileReveal) mobileReveal = makeMobileReveal(items, 'lit');
+      ticking = false;
+      return;
+    }
+    if (mobileReveal) { mobileReveal.disconnect(); mobileReveal = null; }
     var rect = pinSpace.getBoundingClientRect();
     var vh = window.innerHeight || 1;
     // How far the user has scrolled through the pinned section (0 → 1)
