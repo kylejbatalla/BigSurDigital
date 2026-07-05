@@ -497,10 +497,9 @@ section { padding: 110px 0; position: relative; }
 .process-sticky {
   position: sticky; top: 0; min-height: 100svh;
   display: flex; flex-direction: column;
-  /* top-anchored (not centered) so the heading stays put while
-     cards below expand and collapse */
-  justify-content: flex-start;
-  padding: calc(64px + 6svh) 0 40px;
+  /* vertically centered in the viewport */
+  justify-content: center;
+  padding: 64px 0 40px;
 }
 /* Shared backdrop for How It Works + Why Us: one aurora layer sticks to the
    viewport for the whole zone while both sections' content scrolls over it */
@@ -598,6 +597,12 @@ section { padding: 110px 0; position: relative; }
 .why-list {
   list-style: none; max-width: 660px; margin: 0 auto;
   display: flex; flex-direction: column; gap: 14px;
+}
+@media (min-width: 900px) {
+  .why-list {
+    display: grid; grid-template-columns: 1fr 1fr;
+    max-width: 960px; gap: 16px;
+  }
 }
 .why-list li {
   position: relative; padding: 18px 22px 18px 60px;
