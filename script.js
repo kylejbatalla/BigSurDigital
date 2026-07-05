@@ -278,6 +278,41 @@ var REDUCED_MOTION = window.matchMedia &&
   update();
 })();
 
+// "Why Us" list: section pins on screen while scrolling reveals each
+// point one-by-one; once all are revealed, the page scrolls on normally.
+(function () {
+  var list = document.querySelector('.why-list');
+  var pinSpace = document.querySelector('.why-pin-space');
+  if (!list || !pinSpace) return;
+  var items = Array.prototype.slice.call(list.children);
+  if (!items.length) return;
+  if (REDUCED_MOTION) { // CSS fallback keeps items visible; ensure lit state
+    items.forEach(function (li) { li.classList.add('lit'); });
+    return;
+  }
+
+  var ticking = false;
+  function update() {
+    var rect = pinSpace.getBoundingClientRect();
+    var vh = window.innerHeight || 1;
+    // How far the user has scrolled through the pinned section (0 → 1)
+    var total = pinSpace.offsetHeight - vh;
+    var progress = total > 0 ? -rect.top / total : 1;
+    progress = Math.min(Math.max(progress, 0), 1);
+    // Finish the reveal at ~80% so the full list holds for a beat
+    // before the section unpins and the page moves on
+    var reveal = Math.min(progress / 0.8, 1);
+    var lit = Math.round(reveal * items.length);
+    items.forEach(function (li, i) { li.classList.toggle('lit', i < lit); });
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
 // Spotlight hover: glow follows the cursor across cards
 (function () {
   if (REDUCED_MOTION) return;

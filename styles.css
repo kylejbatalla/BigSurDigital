@@ -456,6 +456,17 @@ section { padding: 110px 0; position: relative; }
 }
 
 /* ---------- Why Us ---------- */
+/* Pinned scroll section (same pattern as Did You Know): the tall pin-space
+   gives scroll room while the sticky block holds the list centered on screen.
+   Scrolling through the pin-space reveals each point one by one. */
+#why { padding: 0; }
+.why-pin-space { height: 300vh; position: relative; }
+.why-sticky {
+  position: sticky; top: 0; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 90px 0 40px;
+}
+.why-sticky .section-head { margin-bottom: 44px; }
 .why-list {
   list-style: none; max-width: 660px; margin: 0 auto;
   display: flex; flex-direction: column; gap: 14px;
@@ -479,19 +490,14 @@ section { padding: 110px 0; position: relative; }
   display: grid; place-items: center; font-size: 0.85rem; font-weight: 700;
   box-shadow: 0 0 14px rgba(40, 128, 201, 0.45);
 }
-/* One-by-one entrance (quick): each row pops up in sequence.
-   Uses a one-shot animation so entrance delays never slow down hover effects. */
-.why-list > li { opacity: 0; }
-.why-list.in-view > li { opacity: 1; animation: why-in 0.45s var(--ease) backwards; }
-@keyframes why-in {
-  from { opacity: 0; transform: translateY(26px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Scroll-driven reveal (JS toggles .lit as the user scrolls the pin-space) */
+.why-list > li {
+  opacity: 0.15; transform: translateY(22px);
+  transition: opacity 0.45s ease, transform 0.45s var(--ease),
+    border-color 0.3s ease, background-color 0.3s ease;
 }
-.why-list.in-view > li:nth-child(1) { animation-delay: 0.05s; }
-.why-list.in-view > li:nth-child(2) { animation-delay: 0.15s; }
-.why-list.in-view > li:nth-child(3) { animation-delay: 0.25s; }
-.why-list.in-view > li:nth-child(4) { animation-delay: 0.35s; }
-.why-list.in-view > li:nth-child(5) { animation-delay: 0.45s; }
+.why-list > li.lit { opacity: 1; transform: translateY(0); }
+.why-list > li.lit:hover { transform: translateX(6px); }
 .why-cta { text-align: center; margin-top: 48px; }
 
 /* ---------- Work / templates ---------- */
@@ -632,6 +638,12 @@ form .btn-primary { width: 100%; }
 footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 1px solid var(--border); }
 .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
 .foot .brand span { color: #fff; }
+.foot-brand-text { display: flex; flex-direction: column; }
+.foot .brand span.foot-tagline {
+  color: var(--muted); font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.82rem; font-weight: 400;
+  text-transform: none; letter-spacing: 0.01em; margin-top: 2px;
+}
 .foot-logo {
   width: 54px; height: 54px; border-radius: 50%; flex-shrink: 0;
   background: #fff; display: grid; place-items: center; overflow: hidden;
@@ -706,7 +718,9 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   .hero-rise { opacity: 1; transform: none; animation: none; }
   .eyebrow::before, .scroll-cue { animation: none; }
   .aurora, .mini-scroll, .mini-h1, .mini-btn, .float-chip { animation: none !important; }
-  .why-list > li { opacity: 1 !important; animation: none !important; }
+  .why-list > li { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .why-pin-space { height: auto; }
+  .why-sticky { position: static; min-height: auto; padding: 90px 0; }
   .mini-copy > * { animation: none !important; opacity: 1; transform: none; }
   .dyk-word { opacity: 1 !important; }
   .dyk-pin-space { height: auto; }
