@@ -496,8 +496,11 @@ section { padding: 110px 0; position: relative; }
 .process-pin-space { height: 250vh; position: relative; }
 .process-sticky {
   position: sticky; top: 0; min-height: 100svh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 90px 0 40px;
+  display: flex; flex-direction: column;
+  /* top-anchored (not centered) so the heading stays put while
+     cards below expand and collapse */
+  justify-content: flex-start;
+  padding: calc(64px + 6svh) 0 40px;
 }
 /* Shared backdrop for How It Works + Why Us: one aurora layer sticks to the
    viewport for the whole zone while both sections' content scrolls over it */
