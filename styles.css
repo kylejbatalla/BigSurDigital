@@ -178,13 +178,8 @@ header.hero-mode .nav-links a:not(.btn):hover { color: #fff; }
 .hero-text { flex: 1; min-width: 0; }
 
 /* ---------- Laptop mockup (pure CSS) ---------- */
-.hero-visual { flex-shrink: 0; position: relative; perspective: 1600px; }
-.laptop {
-  width: min(540px, 42vw); position: relative;
-  transform: rotateY(calc(-10deg + var(--ry, 0deg))) rotateX(calc(5deg + var(--rx, 0deg)));
-  transform-style: preserve-3d;
-  transition: transform 0.25s ease-out;
-}
+.hero-visual { flex-shrink: 0; position: relative; }
+.laptop { width: min(540px, 42vw); position: relative; }
 .hero-visual::after { /* glow pooled beneath the laptop */
   content: ""; position: absolute; left: 8%; right: 8%; bottom: -34px; height: 70px;
   background: radial-gradient(ellipse, rgba(40, 128, 201, 0.35), transparent 70%);
@@ -264,7 +259,12 @@ header.hero-mode .nav-links a:not(.btn):hover { color: #fff; }
   0%, 100% { box-shadow: 0 0 0 0 rgba(100, 181, 246, 0.5); }
   50% { box-shadow: 0 0 14px 3px rgba(100, 181, 246, 0.35); }
 }
-.mini-media { flex-shrink: 0; display: grid; place-items: center; }
+.mini-media {
+  flex-shrink: 0; display: grid; place-items: center;
+  /* build in alongside the copy, same as the phone's logo */
+  transform-origin: 50% 50%;
+  animation: build-in 0.7s var(--ease) 0.9s backwards;
+}
 .logo-3d { width: clamp(90px, 9vw, 120px); height: clamp(90px, 9vw, 120px); position: relative; }
 .logo-3d canvas { display: block; width: 100% !important; height: 100% !important; }
 .logo-3d img { width: 100%; height: 100%; object-fit: contain; }
@@ -278,6 +278,57 @@ header.hero-mode .nav-links a:not(.btn):hover { color: #fff; }
 .mini-card .mc-line { height: 6px; width: 85%; border-radius: 3px; background: rgba(255, 255, 255, 0.15); }
 .mini-card .mc-line.short { width: 55%; }
 .mini-footer { height: 26px; margin: 2px 18px 16px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); }
+
+/* ---------- Phone mockup (mobile view of the same mini site) ---------- */
+.phone {
+  position: absolute; left: -7%; bottom: -7%;
+  width: clamp(94px, 9.5vw, 130px); z-index: 3;
+}
+.phone-screen {
+  position: relative; aspect-ratio: 9 / 19;
+  border-radius: 18px; border: 2px solid #1d2940;
+  background: #0a1120; overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(40, 128, 201, 0.14);
+}
+.phone-notch {
+  position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
+  width: 36%; height: 4px; border-radius: 999px; background: #1d2940; z-index: 1;
+}
+/* Scrolls in sync with the laptop: same keyframes + duration, so both
+   screens "browse" down and back up at the same moments */
+.p-page { flex: 1; overflow: hidden; position: relative; }
+.p-scroll {
+  position: absolute; inset: 0 0 auto 0;
+  display: flex; flex-direction: column; gap: 6px; padding: 15px 9px 9px;
+  animation: mini-scroll 16s ease-in-out infinite;
+}
+.p-footer { height: 14px; border-radius: 4px; background: rgba(255, 255, 255, 0.05); }
+.p-nav { display: flex; align-items: center; justify-content: space-between; }
+.p-logo { width: 24px; height: 6px; border-radius: 3px; background: var(--grad); }
+.p-burger { display: flex; flex-direction: column; gap: 2.5px; }
+.p-burger i { width: 10px; height: 1.5px; border-radius: 1px; background: rgba(255, 255, 255, 0.35); }
+.p-hero { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 3px 0 2px; }
+.phone .logo-3d { width: 46px; height: 46px; }
+/* Same staggered build-in entrance as the laptop's copy */
+.p-hero > * { transform-origin: 50% 50%; animation: build-in 0.7s var(--ease) backwards; }
+.p-hero > *:nth-child(1) { animation-delay: 0.9s; }
+.p-hero > *:nth-child(2) { animation-delay: 1.1s; }
+.p-hero > *:nth-child(3) { animation-delay: 1.3s; }
+.p-hero > *:nth-child(4) { animation-delay: 1.5s; }
+.p-hero > *:nth-child(5) { animation-delay: 1.7s; }
+.p-h1 {
+  height: 8px; width: 86%; border-radius: 4px;
+  background: linear-gradient(100deg, #3a8fd9 20%, #9cccf5 45%, #3a8fd9 70%);
+  background-size: 200% 100%;
+  animation: build-in 0.7s var(--ease) backwards, shimmer 5s linear 2.2s infinite;
+}
+.p-h1.short { width: 60%; }
+.p-line { height: 5px; width: 78%; border-radius: 3px; background: rgba(255, 255, 255, 0.13); }
+.p-btn {
+  width: 40px; height: 13px; border-radius: 999px; background: var(--grad); margin-top: 2px;
+  animation: build-in 0.7s var(--ease) backwards, btn-pulse 3s ease-in-out 2.6s infinite;
+}
 
 /* Floating glass chips around the laptop */
 .float-chip {
@@ -481,14 +532,13 @@ section { padding: 110px 0; position: relative; }
   background: var(--grad); color: #fff;
   display: grid; place-items: center;
   font-size: 1.25rem; font-weight: 800;
-  box-shadow: 0 0 0 6px var(--bg);
   position: relative; z-index: 1;
   transform: scale(0.72); /* shrunken preview state */
   filter: saturate(0.35) brightness(0.72);
   transition: box-shadow 0.45s ease, transform 0.45s var(--ease), filter 0.45s ease;
 }
 .tl-item.active .tl-marker {
-  box-shadow: 0 0 24px rgba(40, 128, 201, 0.6), 0 0 0 6px var(--bg);
+  box-shadow: 0 0 24px rgba(40, 128, 201, 0.6);
   transform: scale(1.08);
   filter: none;
 }
@@ -761,6 +811,7 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   .hero h1, .hero p { margin-left: auto; margin-right: auto; }
   .laptop { width: min(460px, 86vw); }
   .hero-visual { margin-top: 14px; }
+  .phone { width: 92px; left: -4%; bottom: -9%; }
   .logo-3d { width: 76px; height: 76px; }
   /* Auroras: vw-based sizes get tiny on phones — make them bigger and brighter */
   .aurora.a1 {
@@ -799,7 +850,7 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   .reveal, .drop-in, .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
   .hero-rise { opacity: 1; transform: none; animation: none; }
   .eyebrow::before, .scroll-cue { animation: none; }
-  .aurora, .mini-scroll, .mini-h1, .mini-btn, .float-chip { animation: none !important; }
+  .aurora, .mini-scroll, .mini-h1, .mini-btn, .float-chip, .p-scroll, .p-h1 { animation: none !important; }
   .why-list > li { opacity: 1 !important; transform: none !important; animation: none !important; }
   .why-pin-space { height: auto; }
   .why-sticky { position: static; min-height: auto; padding: 90px 0; }
@@ -809,6 +860,7 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   .tl-marker { filter: none !important; transform: none !important; }
   .tl-card p { max-height: none !important; opacity: 1 !important; margin-top: 10px !important; }
   .mini-copy > * { animation: none !important; opacity: 1; transform: none; }
+  .p-hero > *, .p-btn, .mini-media { animation: none !important; opacity: 1; transform: none; }
   .dyk-word { opacity: 1 !important; }
   .dyk-pin-space { height: auto; }
   .dyk-sticky { position: static; height: auto; padding: 90px 0; }

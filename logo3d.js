@@ -8,8 +8,8 @@
 (function () {
   var THREE_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
 
-  var container = document.getElementById('logo3d');
-  if (!container) return;
+  var containers = Array.prototype.slice.call(document.querySelectorAll('.logo-3d'));
+  if (!containers.length) return;
   var shapeData = window.LOGO_SHAPE;
   if (!shapeData || !shapeData.length) return;
 
@@ -38,6 +38,11 @@
   // ---- Scene setup (runs once three.js is available) ----
   function init() {
     if (typeof THREE === 'undefined') return;
+    containers.forEach(setupScene);
+  }
+
+  // One renderer/scene per container (laptop + phone mockups)
+  function setupScene(container) {
     var fallback = container.querySelector('img');
 
     var renderer;

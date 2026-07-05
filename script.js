@@ -367,29 +367,4 @@ var REDUCED_MOTION = window.matchMedia &&
   });
 })();
 
-// Laptop mouse parallax: the laptop subtly tilts toward the cursor
-(function () {
-  if (REDUCED_MOTION) return;
-  if (window.matchMedia && !window.matchMedia('(hover: hover)').matches) return;
-  var laptop = document.getElementById('laptop');
-  var hero = document.querySelector('.hero');
-  if (!laptop || !hero) return;
-  var ticking = false, nx = 0, ny = 0;
-  function apply() {
-    laptop.style.setProperty('--ry', (nx * 7) + 'deg');
-    laptop.style.setProperty('--rx', (-ny * 5) + 'deg');
-    ticking = false;
-  }
-  hero.addEventListener('mousemove', function (e) {
-    var r = hero.getBoundingClientRect();
-    nx = (e.clientX - r.left) / r.width - 0.5;
-    ny = (e.clientY - r.top) / r.height - 0.5;
-    if (!ticking) { requestAnimationFrame(apply); ticking = true; }
-  }, { passive: true });
-  hero.addEventListener('mouseleave', function () {
-    nx = 0; ny = 0;
-    requestAnimationFrame(apply);
-  });
-})();
-
 // 3D hero logo lives in logo3d.js (three.js extrusion + rotation)
