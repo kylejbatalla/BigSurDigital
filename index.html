@@ -50,7 +50,7 @@
         </div>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="#services">Services</a>
+        <a href="#services">How It Works</a>
         <a href="#why">Why Us?</a>
         <a href="#work">Current Work</a>
         <a href="#about">About</a>
@@ -137,52 +137,65 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="kicker">Services</span>
-        <h2>Websites That Help Your Business Stand Out</h2>
-        <p>We design websites that establish trust, showcase what makes you unique, and help turn visitors into paying customers.</p>
-      </div>
-      <div class="grid-2 stagger">
-        <div class="card spotlight">
-          <div class="icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-            </svg>
-          </div>
-          <h3>Custom Websites Designed From Scratch</h3>
-          <p>A fully custom website built around your business, brand, and goals—designed to load quickly, 
-            look great on every device, and help customers find you online.<br><br>Best for: Businesses that want a completely unique online presence built from the ground up.</p>
-          <ul>
-            <li>Built specifically for your business</li>
-            <li>Mobile &amp; tablet optimized</li>
-            <li>Optimized for Google Search</li>
-            <li>Contact forms, maps &amp; booking</li>
-          </ul>
-        </div>
+  <!-- HOW IT WORKS + WHY US: shared aurora background; content scrolls over it -->
+  <div class="flow-zone">
+    <div class="flow-bg" aria-hidden="true">
+      <div class="aurora a1"></div>
+      <div class="aurora a2"></div>
+      <div class="aurora a3"></div>
+    </div>
 
-        <div class="card spotlight">
-          <div class="icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <path d="M3 9h18M9 21V9" />
-            </svg>
+  <!-- HOW IT WORKS -->
+  <section class="process" id="services">
+    <div class="process-pin-space">
+      <div class="process-sticky">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>From First Idea to Launch — and Beyond</h2>
+            <p>A simple, proven process that takes your website from concept to launch, with an estimated launch time of 1 week.</p>
           </div>
-          <h3>Pre-Made, Fully Customizable Website Templates</h3>
-          <p>Choose from professionally designed website templates, then personalize them with your branding, colors, photos, 
-            and content for a polished website delivered faster.<br><br>Best for: Businesses looking for a professional website with a faster turnaround.</p>
-          <ul>
-            <li>Personalized with your branding</li>
-            <li>Faster launch time</li>
-            <li>Search engine optimization</li>
-          </ul>
-          <div class="why-cta">
-            <a href="#templates_for_sale" class="btn btn-primary">View Pre-Made Websites</a>
+          <ol class="timeline">
+        <li class="tl-item">
+          <div class="tl-marker">1</div>
+          <div class="card tl-card spotlight">
+            <h3>Design Phase</h3>
+            <p>We start by learning about your business, your customers, and your goals. Then we create a
+              custom design mockup of your website—you review it and we refine it together until it's exactly how you want it.</p>
           </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-marker">2</div>
+          <div class="card tl-card spotlight">
+            <h3>Implementation Phase</h3>
+            <p>We build your website with clean, fast code—mobile and tablet optimized, tuned for Google Search,
+              and complete with contact forms, maps, and anything else your business needs.</p>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-marker">3</div>
+          <div class="card tl-card spotlight">
+            <h3>Testing Phase</h3>
+            <p>Developer and client will have the opportunity to test the site across devices and browsers—checking load speed, forms, links, and layout—so
+              your website works flawlessly for every visitor.</p>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-marker">4</div>
+          <div class="card tl-card spotlight">
+            <h3>Launch Phase</h3>
+            <p>We handle the technical side of going live: your domain, hosting, security, and getting your
+              website in front of Google—so customers can start finding you online.</p>
+          </div>
+        </li>
+        <li class="tl-item">
+          <div class="tl-marker">5</div>
+          <div class="card tl-card spotlight">
+            <h3>Continuous Iteration &amp; Improvements</h3>
+            <p>Your website grows with your business. We keep it updated, maintained, and secure—and make
+              ongoing improvements as your needs change. You focus on your business; we handle the website.</p>
+          </div>
+        </li>
+          </ol>
         </div>
       </div>
     </div>
@@ -199,8 +212,8 @@
           </div>
 
           <ul class="why-list">
-            <li>Everything is done for you — design, hosting, updates, and support.</li>
-            <li>Fast performance guaranteed — our sites score an average of ≈90+ on 
+            <li>Everything is done for you — design, hosting, security, updates, and support.</li>
+            <li>Fast performance guaranteed — our sites score an average of ≈ 90+ on 
               <a href="https://pagespeed.web.dev/analysis/https-big-sur-digital/jb7oemmbbg?form_factor=mobile">Google PageSpeed Insights</a>.</li>
             <li>100% built around your business — no generic website builder templates.</li>
             <li>Talk to a real developer — no call centers or AI chatbots.</li>
@@ -210,6 +223,8 @@
       </div>
     </div>
   </section>
+
+  </div><!-- /flow-zone -->
 
   <!-- CURRENT WORK -->
   <section class="templates" id="work">
@@ -254,78 +269,7 @@
         </article>
 
       </div>
-    </div>
-  </section>
-
-  <!--FOR SALE-->
-  <section class="templates_for_sale" id="templates_for_sale">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="kicker"></span>
-        <h2>Pre-made Websites For Sale</h2>
-        <p>Pre-made websites available for purchase. 100% customizable. Mobile and desktop friendly.</p>
-      </div>
-
-      <div class="work-grid stagger">
-
-        <article class="work-card spotlight">
-          <div class="thumb ph3">
-            <span class="badge badge-sale">For Sale</span>
-            <img src="resources/autoshop.webp" alt="Auto shop website template" loading="lazy" />
-          </div>
-          <div class="body">
-            <h3>Auto/Mechanic Business Ready Website</h3>
-            <p>Suitable for a auto/mechanic small business. Feature auto-translation button for English/Spanish.</p>
-            <!--<div class="price">$499 <small>+ customization</small></div>-->
-            <div class="tags"><span>English/Spanish Translation</span><span>5 Page Website</span><span>100% Customizable</span></div>
-            <a href="https://kylejbatalla.github.io/auto-company/" class="btn btn-primary">Visit</a>
-          </div>
-        </article>
-
-        <article class="work-card spotlight">
-          <div class="thumb ph3">
-            <span class="badge badge-sale">For Sale</span>
-            <img src="resources/coffeeshop.webp" alt="Coffee Shop" loading="lazy" />
-          </div>
-          <div class="body">
-            <h3>Coffee Shop/Cafe Ready Website</h3>
-            <p>Single page website suitable for a small cafe. Featuring a fun hero section animation.</p>
-            <!--<div class="price">$499 <small>+ customization</small></div>-->
-            <div class="tags"><span>Single Page Website</span><span>100% Customizable</span></div>
-            <a href="https://kylejbatalla.github.io/coffeeshop/" class="btn btn-primary">Visit</a>
-          </div>
-        </article>
-
-        <article class="work-card spotlight">
-          <div class="thumb ph3">
-            <span class="badge badge-sale">For Sale</span>
-            <img src="resources/restaurant.webp" alt="Restaurant" loading="lazy" />
-          </div>
-          <div class="body">
-            <h3>Restaurant Ready Website</h3>
-            <p>5 page website suitable for a restaurant looking for sleek and modern feel.</p>
-            <!--<div class="price">$499 <small>+ customization</small></div>-->
-            <div class="tags"><span>5 Page Website</span><span>100% Customizable</span></div>
-            <a href="https://kylejbatalla.github.io/restaurant/" class="btn btn-primary">Visit</a>
-          </div>
-        </article>
-
-        <!-- TEMPLATE FOR SALE
-      <article class="work-card spotlight">
-        <div class="thumb ph4">
-          <span class="badge badge-sale">For Sale</span>
-          <span class="placeholder">Add a screenshot here<br>(resources/your-image.png)</span>
-        </div>
-        <div class="body">
-          <h3>Template Name</h3>
-          <p>What kind of business this template suits and what's included. Replace with your real template details.</p>
-          <div class="price">$549 <small>+ customization</small></div>
-          <a href="#contact" class="btn btn-primary">Get This Template</a>
-        </div>
-      </article>-->
-
-      </div>
-      <p class="work-note">Want something tailored to your business? Tell me about your project
+      <p class="work-note">Want something like this for your business? Tell me about your project
         and I'll build it from scratch. Click below for a free quote.</p>
       <div class="why-cta">
         <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
@@ -376,7 +320,7 @@
       <div class="section-head reveal">
         <span class="kicker" style="color:var(--sky);">Get In Touch</span>
         <h2>Let's build something for your business</h2>
-        <p>Got a project in mind? Or want to purchase a pre-made website? Contact us below for a quote.</p>
+        <p>Got a project in mind? Contact us below for a free quote.</p>
       </div>
       <div class="contact-grid stagger">
         <div class="contact-info">
@@ -421,7 +365,6 @@
             <label for="interest">I'm interested in</label>
             <select id="interest" name="interest">
               <option>Custom website from scratch</option>
-              <option>Ready-made template</option>
               <option>Not sure yet — need advice</option>
             </select>
           </div>
@@ -463,7 +406,7 @@
         </div>
       </a>
       <div class="foot-links">
-        <a href="#services">Services</a>
+        <a href="#services">How It Works</a>
         <a href="#why">Why Us?</a>
         <a href="#work">Current Work</a>
         <a href="#about">About</a>

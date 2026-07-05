@@ -278,6 +278,47 @@ var REDUCED_MOTION = window.matchMedia &&
   update();
 })();
 
+// "How It Works" timeline: section pins on screen while scrolling walks
+// through the steps — only the active step's card is expanded; the rest
+// stay as compact previews. Once the last step is done, the page moves on.
+(function () {
+  var timeline = document.querySelector('.timeline');
+  var pinSpace = document.querySelector('.process-pin-space');
+  if (!timeline || !pinSpace) return;
+  var items = Array.prototype.slice.call(timeline.children);
+  if (!items.length) return;
+  if (REDUCED_MOTION) { // CSS fallback expands everything; mark all active
+    items.forEach(function (li) { li.classList.add('active'); });
+    return;
+  }
+
+  var current = -1;
+  function setActive(idx) {
+    if (idx === current) return;
+    current = idx;
+    items.forEach(function (li, i) { li.classList.toggle('active', i === idx); });
+  }
+
+  var ticking = false;
+  function update() {
+    var rect = pinSpace.getBoundingClientRect();
+    var vh = window.innerHeight || 1;
+    // How far the user has scrolled through the pinned section (0 → 1)
+    var total = pinSpace.offsetHeight - vh;
+    var progress = total > 0 ? -rect.top / total : 1;
+    progress = Math.min(Math.max(progress, 0), 1);
+    // Last step finishes at ~90% so it holds for a beat before unpinning
+    var idx = Math.min(Math.floor((progress / 0.9) * items.length), items.length - 1);
+    setActive(idx);
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
 // "Why Us" list: section pins on screen while scrolling reveals each
 // point one-by-one; once all are revealed, the page scrolls on normally.
 (function () {

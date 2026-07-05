@@ -436,7 +436,82 @@ section { padding: 110px 0; position: relative; }
 .spotlight:hover::before { opacity: 1; }
 .card > *, .compare-card > *, .work-card > * { position: relative; z-index: 1; }
 
-/* ---------- Services ---------- */
+/* ---------- How It Works (timeline) ---------- */
+/* Pinned scroll section (same pattern as Did You Know / Why Us): the section
+   holds on screen while scrolling walks through the steps. Every step stays
+   compact (number + title); only the active one expands to show its text,
+   so the whole timeline never takes more than one screen. */
+.process { padding: 0; }
+.process-pin-space { height: 250vh; position: relative; }
+.process-sticky {
+  position: sticky; top: 0; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 90px 0 40px;
+}
+/* Shared backdrop for How It Works + Why Us: one aurora layer sticks to the
+   viewport for the whole zone while both sections' content scrolls over it */
+.flow-zone { position: relative; }
+.flow-zone > section { position: relative; z-index: 1; }
+.flow-bg {
+  position: sticky; top: 0; height: 100svh;
+  margin-bottom: -100svh; /* takes no scroll space of its own */
+  z-index: 0; overflow: hidden; pointer-events: none;
+}
+.process-sticky .section-head { margin-bottom: 36px; }
+.timeline {
+  list-style: none; max-width: 760px; margin: 0 auto; width: 100%;
+  position: relative;
+}
+.timeline::before { /* connecting line down the markers */
+  content: ""; position: absolute; left: 26px; top: 14px; bottom: 14px;
+  width: 2px;
+  background: linear-gradient(to bottom,
+    transparent, rgba(100, 181, 246, 0.4) 6%,
+    rgba(100, 181, 246, 0.4) 94%, transparent);
+}
+.tl-item {
+  position: relative; display: flex; align-items: flex-start; gap: 26px;
+  padding-bottom: 16px;
+}
+.tl-item:last-child { padding-bottom: 0; }
+/* Markers stay fully opaque (so they cover the line and the number reads
+   clearly) — inactive ones are dimmed with a filter instead of transparency */
+.tl-marker {
+  width: 54px; height: 54px; flex-shrink: 0; border-radius: 50%;
+  background: var(--grad); color: #fff;
+  display: grid; place-items: center;
+  font-size: 1.25rem; font-weight: 800;
+  box-shadow: 0 0 0 6px var(--bg);
+  position: relative; z-index: 1;
+  transform: scale(0.72); /* shrunken preview state */
+  filter: saturate(0.35) brightness(0.72);
+  transition: box-shadow 0.45s ease, transform 0.45s var(--ease), filter 0.45s ease;
+}
+.tl-item.active .tl-marker {
+  box-shadow: 0 0 24px rgba(40, 128, 201, 0.6), 0 0 0 6px var(--bg);
+  transform: scale(1.08);
+  filter: none;
+}
+/* .card.tl-card outranks the generic .card rules that appear later in the file */
+.card.tl-card {
+  flex: 1; padding: 6px 20px; opacity: 0.4;
+  transition: padding 0.5s var(--ease), opacity 0.45s ease;
+}
+.tl-item.active .card.tl-card { opacity: 1; }
+.tl-item.active .card.tl-card { padding: 24px 30px; }
+.card.tl-card h3 {
+  font-size: 0.98rem; margin-bottom: 0;
+  transition: font-size 0.45s var(--ease);
+}
+.tl-item.active .card.tl-card h3 { font-size: 1.3rem; }
+/* Collapsed preview: title only. Active: description unfolds. */
+.card.tl-card p {
+  max-height: 0; opacity: 0; overflow: hidden; margin: 0;
+  transition: max-height 0.55s var(--ease), opacity 0.4s ease, margin-top 0.55s var(--ease);
+}
+.tl-item.active .card.tl-card p { max-height: 260px; opacity: 1; margin-top: 10px; }
+
+/* ---------- Cards ---------- */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
 .card { padding: 40px; }
 .card .icon {
@@ -705,6 +780,13 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
 }
 @media (max-width: 520px) {
   section { padding: 68px 0; }
+  .tl-marker { width: 44px; height: 44px; font-size: 1.05rem; }
+  .timeline::before { left: 21px; }
+  .tl-item { gap: 16px; padding-bottom: 12px; }
+  .card.tl-card { padding: 4px 16px; }
+  .tl-item.active .card.tl-card { padding: 18px 16px; }
+  .card.tl-card h3 { font-size: 0.9rem; }
+  .tl-item.active .card.tl-card h3 { font-size: 1.15rem; }
   .scroll-cue { display: none; }
   .float-chip.c2 { display: none; }
   .float-chip.c1 { left: 0; }
@@ -721,6 +803,11 @@ footer { background: #04060a; color: var(--muted); padding: 48px 0; border-top: 
   .why-list > li { opacity: 1 !important; transform: none !important; animation: none !important; }
   .why-pin-space { height: auto; }
   .why-sticky { position: static; min-height: auto; padding: 90px 0; }
+  .process-pin-space { height: auto; }
+  .process-sticky { position: static; min-height: auto; padding: 90px 0; }
+  .card.tl-card { opacity: 1 !important; }
+  .tl-marker { filter: none !important; transform: none !important; }
+  .tl-card p { max-height: none !important; opacity: 1 !important; margin-top: 10px !important; }
   .mini-copy > * { animation: none !important; opacity: 1; transform: none; }
   .dyk-word { opacity: 1 !important; }
   .dyk-pin-space { height: auto; }
