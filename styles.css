@@ -64,6 +64,12 @@ a { color: var(--sky); text-decoration: none; }
   background: var(--grad); color: #fff;
   box-shadow: 0 8px 24px rgba(40, 128, 201, 0.35);
 }
+.btn-primary-disabled {
+  pointer-events: none;
+  background: var(--muted); color: #fff;
+  box-shadow: 0 8px 24px rgba(40, 128, 201, 0.35);
+  justify-content: center;
+}
 .btn-primary:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 14px 40px rgba(40, 128, 201, 0.55), var(--glow);
@@ -763,7 +769,9 @@ form input:focus, form select:focus, form textarea:focus {
 form ::placeholder { color: rgba(147, 164, 187, 0.6); }
 form textarea { resize: vertical; min-height: 110px; }
 form .btn-primary { width: 100%; }
+form .btn-primary-disabled { display: block; margin: 0 auto; }
 .form-notice { font-size: 0.78rem; line-height: 1.5; color: var(--muted); text-align: center; margin: 12px 0 0; }
+.form-notice-blocked { font-size: 1rem; line-height: 1.5; color: rgb(200, 0, 0); text-align: center; margin: 12px 0 0; }
 .form-notice a { color: var(--sky); text-decoration: underline; }
 .grecaptcha-badge { visibility: hidden; }
 
